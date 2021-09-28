@@ -5,6 +5,8 @@ output: github_document
 
 ```{r, echo = FALSE, message = FALSE}
 library(tidyverse)
+library(readxl)
+library(haven)
 litters_df = read_csv("data/FAS_litters.csv")
 ```
 
@@ -65,6 +67,40 @@ litters_data = read_csv(file = "./data/FAS_litters.csv",
 )
 ```
 
+## Reading from Excel
 
+Reading MLB data.
+```{r}
+mlb11_df = read_excel("data/mlb11.xlsx")
+```
 
+LotR Words is next.
 
+```{r}
+fellow_df = read_excel("data/LotR_Words.xlsx", range = "B3:D6")
+```
+
+## Read a SAS file
+
+This is where I tried to read a SAS file and didn't.
+```{r, eval = FALSE}
+pulse_df = read_sas("data/public_pulse_data.sas7bdat")
+```
+
+## why to never use 'read.csv'
+
+'read.csv' doesn't give 'tibble' and that's really bad.
+
+```{r}
+litters_df_base = read.csv("data/FAS_litters.csv")
+```
+
+## how to I export data
+
+there's a good way!
+
+```{r}
+write_csv(fellow_df, "data/fellowship_words.csv")
+```
+
+ 
