@@ -35,6 +35,7 @@ pulse_tidy =
   )
 ```
 
+(what about `gather()` ...? never use this one. always use `pivot_longer()')
 ## pivot_wider
 
 Make up a results data table.
@@ -54,6 +55,7 @@ analysis_df %>%
   knitr::kable()
 ```
 
+(what about `spread()` ...? never use this one. always use `pivot_wider()')
 
 ## bind_rows
 Import the LotR movie words stuff.
@@ -77,5 +79,32 @@ lotr_df =
     values_to = "words"
   ) %>% 
   relocate(movie)
+```
+
+(what about `rbind()` ...? never use this one. always use `bind_rows()')
+
+## joins
+
+Look at FAS data. This imports and cleans the litters and pups dataframes.
+```{r}
+litters_df = 
+  read_csv("data/FAS_litters.csv") %>% 
+  janitor::clean_names() %>% 
+  separate(group, into = c("dose", "day_of_tx"), 3) %>% 
+  relocate(litter_number) %>% 
+  mutate(dose = str_to_lower(dose))
+
+pups_df = 
+  read_csv("data/FAS_pups.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(sex = recode(sex, `1` = "male", `2` = "female"))
+```
+
+Let's join these up!
+
+```{r}
+fas_df =
+  left_join(pups_df, litters_df, by = "litter_number") %>% 
+  relocate(litter_number, dose, day_of_tx)
 ```
 
