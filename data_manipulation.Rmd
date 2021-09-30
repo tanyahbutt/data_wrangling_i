@@ -45,3 +45,26 @@ select(litters_df, group)
 # pull(litters_df, group)
 ```
 
+## `filter`
+
+Let's get rid of rows.
+
+```{r}
+filter(litters_df, gd_of_birth == 20)
+filter(litters_df, group == "Con7")
+
+filter(litters_df, gd0_weight > 23)
+
+filter(litters_df, pups_survive != 4)
+filter(litters_df, (group == "Con7"))
+
+filter(litters_df, group %in% c("Con7","Con8"))
+
+filter(litters_df, group == "Con7", gd_of_birth == 20)
+filter(litters_df, group == "Con7" | gd_of_birth == 20)
+
+drop_na(litters_df)
+drop_na(litters_df, gd0_weight)
+
+```
+
